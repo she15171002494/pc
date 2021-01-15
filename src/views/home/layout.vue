@@ -1,17 +1,19 @@
 <template>
   <div id="layout-container">
     <el-container>
-      <el-aside width="200px">
-        <div class="top"></div>
+      <!-- 左边侧边栏 -->
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <!-- <el-aside width="'200px"> -->
+        <div class="top" :class="{ active: isCollapse }"></div>
         <div class="buttom">
           <el-menu
-            default-active="2"
+            default-active="1"
             class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
-            background-color="#545c64"
+            background-color="#002033"
             text-color="#fff"
             active-text-color="#ffd04b"
+            :collapse="isCollapse"
+            :collapse-transition="false"
           >
             <el-menu-item index="1">
               <i class="el-icon-s-home"></i>
@@ -44,8 +46,29 @@
           </el-menu>
         </div>
       </el-aside>
+      <!-- 右边 -->
       <el-container>
-        <el-header>Header</el-header>
+        <!-- 右边头部 -->
+        <el-header>
+          <div class="left" @click="clickToggle">
+            <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
+            <span>江苏科技教育有限公司</span>
+          </div>
+          <div class="right">
+            <img :src="info.photo" alt="" />
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                <span>{{ info.name }}</span>
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>设置</el-dropdown-item>
+                <el-dropdown-item>退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </el-header>
+        <!-- 右边底部 -->
         <el-main>Main</el-main>
       </el-container>
     </el-container>
@@ -53,7 +76,31 @@
 </template>
 
 <script>
-export default {}
+import { reqUserInfo } from '@/api/user.js'
+export default {
+  data() {
+    return {
+      isCollapse: false,
+      token: '',
+      info: {},
+    }
+  },
+  created() {
+    this.getInfo()
+  },
+  methods: {
+    async getInfo() {
+      this.token = 'Bearer' + ' ' + localStorage.getItem('token')
+      console.log(this.token)
+      let res = await reqUserInfo(this.token)
+      this.info = res.data.data
+      console.log(this.info)
+    },
+    clickToggle() {
+      this.isCollapse = !this.isCollapse
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>
@@ -67,14 +114,35 @@ export default {}
     .el-aside {
       background-color: #002033;
       .top {
-        width: 200px;
         height: 60px;
         background: url('../../assets/images/logo_admin.png') no-repeat center;
         background-size: 140px auto;
       }
+      .active {
+        background: url('../../assets/images/logo_admin_01.png') no-repeat center;
+        background-size: 40px auto;
+      }
+      .el-menu {
+        border-right: none;
+      }
     }
     .el-header {
-      background-color: blue;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          display: block;
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+      }
     }
     .el-main {
       background-color: yellow;

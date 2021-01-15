@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { reqUserLogin } from '@/api/user/login'
+import { reqUserLogin } from '@/api/user.js'
 export default {
   data() {
     return {
