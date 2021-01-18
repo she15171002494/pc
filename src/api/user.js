@@ -1,3 +1,4 @@
+//个人信息相关的
 import http from '@/utils/request'
 
 /**
@@ -14,12 +15,12 @@ export const reqUserLogin = data => {
 /**
  * 获取个人资料
  */
-export const reqUserInfo = token => {
+export const reqUserInfo = () => {
   return http({
     method: 'get',
     url: '/mp/v1_0/user/profile',
-    headers: {
-      Authorization: token,
-    },
+    // headers: {
+    //   Authorization: token,
+    // },
   })
 }

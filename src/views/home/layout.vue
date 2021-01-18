@@ -7,39 +7,40 @@
         <div class="top" :class="{ active: isCollapse }"></div>
         <div class="buttom">
           <el-menu
-            default-active="1"
+            :default-active="$route.path"
             class="el-menu-vertical-demo"
             background-color="#002033"
             text-color="#fff"
             active-text-color="#ffd04b"
             :collapse="isCollapse"
             :collapse-transition="false"
+            :router="true"
           >
-            <el-menu-item index="1">
+            <el-menu-item index="/">
               <i class="el-icon-s-home"></i>
               <span slot="title">首页</span>
             </el-menu-item>
-            <el-menu-item index="2">
+            <el-menu-item index="/actiles">
               <i class="el-icon-document"></i>
               <span slot="title">内容管理</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="/pictures">
               <i class="el-icon-picture"></i>
               <span slot="title">素材管理</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="/addArticle">
               <i class="el-icon-s-promotion"></i>
               <span slot="title">发布文章</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="/comment">
               <i class="el-icon-chat-dot-round"></i>
               <span slot="title">评论管理</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="/fans">
               <i class="el-icon-setting"></i>
               <span slot="title">粉丝管理</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="/settings">
               <i class="el-icon-setting"></i>
               <span slot="title">个人设置</span>
             </el-menu-item>
@@ -63,13 +64,15 @@
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>设置</el-dropdown-item>
-                <el-dropdown-item>退出</el-dropdown-item>
+                <el-dropdown-item @click.native="quit">退出</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
         </el-header>
         <!-- 右边底部 -->
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -77,7 +80,10 @@
 
 <script>
 import { reqUserInfo } from '@/api/user.js'
+import { removeUser } from '@/utils/storage.js'
+
 export default {
+  name: 'layout',
   data() {
     return {
       isCollapse: false,
@@ -90,14 +96,30 @@ export default {
   },
   methods: {
     async getInfo() {
-      this.token = 'Bearer' + ' ' + localStorage.getItem('token')
-      console.log(this.token)
-      let res = await reqUserInfo(this.token)
+      // this.token = 'Bearer' + ' ' + localStorage.getItem('token')
+      // let userInfo = getUser()
+      // this.token = 'Bearer' + ' ' + userInfo.token
+      // console.log(this.token)
+      let res = await reqUserInfo()
       this.info = res.data.data
-      console.log(this.info)
+      // console.log(this.info)
     },
     clickToggle() {
       this.isCollapse = !this.isCollapse
+    },
+    quit() {
+      // console.log('点击了退出按钮')
+      this.$confirm('亲，确定要退出吗？', '温馨提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          removeUser()
+          this.$router.push('/login')
+          this.$message.success('退出成功')
+        })
+        .catch(() => {})
     },
   },
 }

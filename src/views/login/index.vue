@@ -22,7 +22,10 @@
 
 <script>
 import { reqUserLogin } from '@/api/user.js'
+import { setUser } from '@/utils/storage.js'
+
 export default {
+  name: 'login',
   data() {
     return {
       form: {
@@ -66,7 +69,8 @@ export default {
           if (res.data.message === 'OK') {
             console.log('登录成功')
             this.$message.success('登录成功')
-            localStorage.setItem('token', res.data.data.token)
+            // localStorage.setItem('token', res.data.data.token)
+            setUser(res.data.data)
             this.$router.push('/')
           }
         }
