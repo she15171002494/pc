@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "dayjs": "^1.10.3",
     "element-ui": "^2.14.1",
     "lib-flexible": "^0.3.2",
     "postcss-px2rem": "^0.3.0",

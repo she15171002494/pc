@@ -5,14 +5,15 @@ Vue.use(VueRouter)
 import { getUser } from '@/utils/storage.js'
 
 import index from '@/views/login/index.vue'
-import layout from '@/views/home/layout.vue'
+import layout from '@/views/layout/layout.vue'
+import home from '@/views/home'
 import actiles from '@/views/actiles/actiles.vue'
 import pictures from '@/views/pictures/pictures.vue'
-import addArticle from '../views/add-article/add-articles.vue'
-import comment from '../views/comment/comment.vue'
-import fans from '../views/fans/fans.vue'
-import settings from '../views/settings/settings.vue'
-import err from '../views/404/err.vue'
+import addArticle from '@/views/add-article/add-articles.vue'
+import comment from '@/views/comment/comment.vue'
+import fans from '@/views/fans/fans.vue'
+import settings from '@/views/settings/settings.vue'
+import err from '@/views/404/err.vue'
 
 const router = new VueRouter({
   routes: [
@@ -21,6 +22,7 @@ const router = new VueRouter({
       path: '/',
       component: layout, //首页
       children: [
+        { path: '', component: home }, //默认页
         { path: '/actiles', component: actiles }, //文章列表
         { path: '/pictures', component: pictures }, //素材管理
         { path: '/addArticle', component: addArticle }, //发布文章

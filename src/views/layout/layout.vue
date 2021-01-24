@@ -167,7 +167,7 @@ export default {
       }
     }
     .el-main {
-      background-color: yellow;
+      background-color: #ddd;
     }
   }
 }
