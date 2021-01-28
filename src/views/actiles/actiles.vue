@@ -120,7 +120,7 @@ export default {
       page: 1, //页码
       per_page: 10, //条数
       channels: [], //频道
-      loading: true,
+      loading: false,
       obj: {},
     }
   },
@@ -131,6 +131,7 @@ export default {
   methods: {
     // 获取数据列表
     async getList() {
+      this.loading = true
       // let obj = {
       //   status: this.form.status || null, //文章状态
       //   channel_id: this.form.channel_id || null, //频道id
