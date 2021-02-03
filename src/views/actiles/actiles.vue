@@ -83,8 +83,22 @@
           <el-table-column label="日期" width="180" align="center" prop="pubdate"> </el-table-column>
           <!-- 操作 -->
           <el-table-column label="操作" align="center" width="180">
-            <el-button type="primary" icon="el-icon-edit" circle size="mini"></el-button>
-            <el-button type="danger" icon="el-icon-delete" circle size="mini"></el-button>
+            <template slot-scope="scope">
+              <el-button
+                type="primary"
+                icon="el-icon-edit"
+                circle
+                size="mini"
+                @click="editActiles(scope.row.id)"
+              ></el-button>
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                size="mini"
+                @click="deleteActiles(scope.row.id)"
+              ></el-button>
+            </template>
           </el-table-column>
         </el-table>
       </template>
@@ -104,7 +118,7 @@
 </template>
 
 <script>
-import { reqActiles, reqActilesChannels } from '../../api/actiles.js'
+import { reqActiles, reqActilesChannels, reqDeleditActiles } from '../../api/actiles.js'
 // import { date } from '../../utils/utils.js'
 
 export default {
@@ -174,6 +188,16 @@ export default {
         page: this.page, //页码
       }
       this.getList()
+    },
+    // 编辑文章
+    editActiles() {
+      this.$router.push('/edit')
+    },
+    // 删除文章
+    async deleteActiles(id) {
+      console.log('点击文章删除按钮', id)
+      let res = await reqDeleditActiles(id)
+      console.log(res)
     },
   },
 }

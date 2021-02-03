@@ -8,8 +8,9 @@ import index from '@/views/login/index.vue'
 import layout from '@/views/layout/layout.vue'
 import home from '@/views/home'
 import actiles from '@/views/actiles/actiles.vue'
+import addArticle from '@/views/actiles/add-articles.vue'
+import edit from '../views/actiles/edit.vue'
 import pictures from '@/views/pictures/pictures.vue'
-import addArticle from '@/views/add-article/add-articles.vue'
 import comment from '@/views/comment/comment.vue'
 import fans from '@/views/fans/fans.vue'
 import settings from '@/views/settings/settings.vue'
@@ -24,8 +25,9 @@ const router = new VueRouter({
       children: [
         { path: '', component: home }, //默认页
         { path: '/actiles', component: actiles }, //文章列表
-        { path: '/pictures', component: pictures }, //素材管理
         { path: '/addArticle', component: addArticle }, //发布文章
+        { path: '/edit', component: edit }, //编辑文章
+        { path: '/pictures', component: pictures }, //素材管理
         { path: '/comment', component: comment }, //评论管理
         { path: '/fans', component: fans }, //粉丝管理
         { path: '/settings', component: settings }, //账户设置

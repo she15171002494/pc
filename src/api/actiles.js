@@ -21,3 +21,13 @@ export const reqActilesChannels = () => {
     url: '/mp/v1_0/channels',
   })
 }
+
+/**
+ * 删除文章
+ */
+export const reqDeleditActiles = id => {
+  return http({
+    methods: 'delete',
+    url: `/mp/v1_0/articles/${id}`,
+  })
+}
