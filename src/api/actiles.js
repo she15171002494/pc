@@ -17,7 +17,7 @@ export const reqActiles = date => {
  */
 export const reqActilesChannels = () => {
   return http({
-    methods: 'get',
+    method: 'get',
     url: '/mp/v1_0/channels',
   })
 }
@@ -27,7 +27,7 @@ export const reqActilesChannels = () => {
  */
 export const reqDeleditActiles = id => {
   return http({
-    methods: 'delete',
+    method: 'delete',
     url: `/mp/v1_0/articles/${id}`,
   })
 }

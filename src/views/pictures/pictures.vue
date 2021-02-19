@@ -81,11 +81,11 @@ export default {
   data() {
     return {
       imagesList: [], // 图片列表
-      fleg: false,  //全部或者收藏的默认值
-      total: 0,  //总条数
+      fleg: false, //全部或者收藏的默认值
+      total: 0, //总条数
       page: 1, //页码
       pageSize: 10, //每页的条数
-      obj: {}, 
+      obj: {},
       dialogVisible: false, //加载图片的弹窗是否显示
       imageUrl: '',
       //设置请求头
@@ -102,7 +102,7 @@ export default {
     async getImages() {
       this.obj.per_page = this.pageSize
       let res = await reqImages(this.obj)
-      console.log(res.data)
+      // console.log(res.data)
       this.imagesList = res.data.data.results
       this.total = res.data.data.total_count
       console.log(this.imagesList, this.total)
@@ -115,7 +115,7 @@ export default {
     },
     //分页
     changePage(e) {
-      console.log(e)
+      // console.log(e)
       this.obj.page = e
       this.getImages()
     },
@@ -165,8 +165,7 @@ export default {
     },
     //上传成功时的函数
     handleAvatarSuccess(res, file) {
-      // this.imageUrl = URL.createObjectURL(file.raw)
-      console.log('图片', res)
+      // console.log('图片', res)
       this.imageUrl = res.data.url
       this.getImages()
       this.$message.success('上传成功')

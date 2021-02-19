@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import { reqActiles, reqActilesChannels, reqDeleditActiles } from '../../api/actiles.js'
+import { reqActiles, reqActilesChannels, reqDeleditActiles } from '@/api/actiles.js'
 // import { date } from '../../utils/utils.js'
 
 export default {
